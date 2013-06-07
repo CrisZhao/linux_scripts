@@ -35,13 +35,12 @@ do
 #        rm -f $oldfile >> $logfile 2>$1
 #        echo "delete old file success" >> $logfile
 #    fi
-    mysqldump -u $dbuser --opt $dbname > $dumpfile >>$logfile 2>&1
-    echo "[$dumpfile] backup success" >>$logfile
-    echo "------------------------------" >>$logfile
+    mysqldump -u $dbuser --opt $dbname > $dumpfile 2>>$logfile
 done
 
 #upload to remote server
 
-rsync -axz /tmp/backup/datafiles/ demo@192.168.1.202:~/tmp/sqlbackups/ >>$logfile 2>&1
+rsync -axz /tmp/backup/datafiles/ demo@192.168.1.202:~/tmp/sqlbackups/ 2>>$logfile
 
+echo "------------------------------" >>$logfile
 echo "[$(date)] work finished" >>$logfile

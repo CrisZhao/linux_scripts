@@ -11,7 +11,7 @@ do
     echo "working on $reponame ">>$logfile
     repodir=$svnrepos/$reponame
 
-    svnsync synchronize file:///$repodir --source-username=remoteusername --source-password=remotepassword --sync-username=destusername --sync-password=destpassword >>$logfile 2>&1
+    svnsync synchronize file:///$repodir --source-username=remoteusername --source-password=remotepassword --sync-username=destusername --sync-password=destpassword 2>>$logfile
     #echo "update [$reponame] finished">>$logfile
 done
 echo "all done $(date) ---------------" >>$logfile
