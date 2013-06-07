@@ -5,6 +5,7 @@ hookfilename=hooks/pre-revprop-change
 remoteserver=http://192.168.1.222/repos
 configfile=/home/svn/config
 
+
 reponames=($(cat $configfile|grep -v ^#|grep -v ^$))
 
 for reponame in ${reponames[@]};
@@ -18,10 +19,10 @@ do
     chmod 755 $repodir/$hookfilename
     #remove last lines
     sed -i 63,66d $hookfile
-
+    #get and set uuid
     uuid=`svn info $remoteserver/$reponame|grep UUID|sed 's/^.*UUID: //g'`
-    echo $uuid
     svnadmin setuuid $svnrepos/$reponame $uuid
+
     svnsync init file:///$repodir $remoteserver/$reponame --username=username --password=password
     echo "init [$reponame] finished"
 done
